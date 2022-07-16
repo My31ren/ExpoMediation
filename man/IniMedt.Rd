@@ -21,7 +21,7 @@ IniMedt(
 \item{Module}{Mediation}
 }
 \value{
-A R6 class, eSet
+eSet, a R6 class object
 }
 \description{
 Initialize for ExpoMediation
