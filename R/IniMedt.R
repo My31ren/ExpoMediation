@@ -111,7 +111,7 @@ IniMedt <- function(PID = "auto",
   #save R command log
   eSet$RCommandLog <- eSet$AddCommand(stringr::str_c("eSet <- InitExpoData(PID = Any ID your like, FileDirOut = Any output file directory your like)"))
   eSet$RCommandLog %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     purrr::set_names("R commands") %>%
     data.table::fwrite(stringr::str_c(eSet$FileDirOut,"/rcommands log.txt"))
 
@@ -119,13 +119,13 @@ IniMedt <- function(PID = "auto",
 
   eSet$ExcecutionLog  <- eSet$AddLog(stringr::str_c("Complete initializing the", Module,"module. \n", lubridate::now(),"\n"))
   ddpcr::quiet(eSet$ExcecutionLog %>%
-                 as_tibble() %>%
+                 tibble::as_tibble() %>%
                  purrr::set_names("running log") %>%
                  data.table::fwrite(stringr::str_c(eSet$FileDirOut,"/running log.txt"))
   )
   #save eSet
   save(eSet,
-       file = str_c(eSet$FileDirOut,"/eSet.Rdata"))
+       file = stringr::str_c(eSet$FileDirOut,"/eSet.Rdata"))
 
   tictoc::toc()
   return(eSet)

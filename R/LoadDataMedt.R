@@ -21,8 +21,8 @@ LoadDataMedt <- function(eSet,
   tictoc::tic()
 
   lubridate::now() %>%
-    str_replace_all(":",".") %>%
-    str_replace_all("-",".") -> NowTime
+    stringr::str_replace_all(":",".") %>%
+    stringr::str_replace_all("-",".") -> NowTime
 
   path = stringr::str_c(eSet$FileDirOut, "/Load")
   if(!file.exists(path)) {dir.create(path)}
@@ -34,7 +34,7 @@ LoadDataMedt <- function(eSet,
            stringr::str_c("input_", eSet$PID, "/", FileDirVoca) -> FileDirVoca
 
          ddpcr::quiet(
-           if(str_sub(FileDirExpo,-4,-1) == "xlsx"){
+           if(stringr::str_sub(FileDirExpo,-4,-1) == "xlsx"){
              readxl::read_xlsx(FileDirExpo) -> eSet$Expo$Data
            }else{
              vroom::vroom(FileDirExpo,
@@ -42,14 +42,14 @@ LoadDataMedt <- function(eSet,
            })
 
          ddpcr::quiet(
-           if(str_sub(FileDirVoca,-4,-1) == "xlsx"){
+           if(stringr::str_sub(FileDirVoca,-4,-1) == "xlsx"){
              readxl::read_xlsx(FileDirVoca) -> eSet$Expo$Voca
            }else{
              vroom::vroom(FileDirVoca,
                           show_col_types = F) -> eSet$Expo$Voca
            })
          },
-         "example#1" = {
+         "example1" = {
            medtdata -> eSet$Expo$Data
            medtvoca -> eSet$Expo$Voca
          }
@@ -119,7 +119,7 @@ LoadDataMedt <- function(eSet,
   #save R command log
   eSet$RCommandLog <- eSet$AddCommand(stringr::str_c("eSet <- LoadData(eSet = eSet, FileDirExpo = Exposome data file director, FileDirVoca = Exposome vocabulary file directory)"))
   eSet$RCommandLog %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     purrr::set_names("R commands") %>%
     data.table::fwrite(stringr::str_c(eSet$FileDirOut,"/rcommands log.txt"))
 
@@ -129,13 +129,13 @@ LoadDataMedt <- function(eSet,
     dplyr::filter(SerialNo != "Group") %>%
     data.table::fwrite(stringr::str_c(eSet$FileDirOut,"/variables.csv"))
   eSet$ExcecutionLog %>%
-    as_tibble() %>%
+    tibble::as_tibble() %>%
     purrr::set_names("running log") %>%
     data.table::fwrite(stringr::str_c(eSet$FileDirOut,"/running log.txt"))
 
   #save eSet
   save(eSet,
-       file = str_c(eSet$FileDirOut,"/eSet.Rdata"))
+       file = stringr::str_c(eSet$FileDirOut,"/eSet.Rdata"))
 
   tictoc::toc()
   return(eSet)
