@@ -4,6 +4,7 @@ Version: 0.0.1.9000
 Authors@R: 
     person("Mengyuan", "Ren", , "myren.bjmu.edu.cn", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3819-4181"))
+Maintainer: Mengyuan Ren <myren@bjmu.edu.cn>
 Description: ExpoMediation package was designed for estimating and screening potential mediation pathways between pollutants (i.e., exposure) and metabolic markers (i.e., mediator) on the outcomes in a user friendly and efficient way. Especially when the number and category of exposures and mediators are huge. The users can easily get the modelling results as well as the visualized plots in one single step. The package also implements exposure/mediator dimension reduction method, allowing users to explore the mediation effects of mixture groups of exposure/mediator settings.
 License: use_gpl3_license()
 Encoding: UTF-8
